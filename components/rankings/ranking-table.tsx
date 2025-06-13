@@ -20,6 +20,8 @@ interface TeamInfo {
 interface UserForRanking {
   id: string
   name: string
+  /** Optional URL to the user's avatar image */
+  avatar_url?: string
   team_id?: string | number | null
   teams?: TeamInfo
 }

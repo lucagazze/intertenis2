@@ -43,6 +43,8 @@ interface User {
   id: string
   email: string
   name: string
+  /** Optional URL to the user's avatar image */
+  avatar_url?: string
   phone?: string
   birth_date?: string
   role: string
