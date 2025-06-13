@@ -36,6 +36,7 @@ interface UserType {
   email: string
   name: string
   role: string
+  /** Optional URL to the user's avatar image */
   avatar_url?: string
 }
 
