@@ -46,13 +46,14 @@ export async function generateMatches(surveyId: number): Promise<Match[]> {
 
   // Generar partidos para cada día
   for (const [date, players] of Object.entries(playersByDay)) {
-    const availablePlayers = players.filter((p) => !usedPlayers.has(p.user_id))
-
     // Crear parejas
-    for (let i = 0; i < availablePlayers.length - 1; i++) {
-      for (let j = i + 1; j < availablePlayers.length; j++) {
-        const player1 = availablePlayers[i]
-        const player2 = availablePlayers[j]
+    for (let i = 0; i < players.length - 1; i++) {
+      const player1 = players[i]
+      if (usedPlayers.has(player1.user_id)) continue
+
+      for (let j = i + 1; j < players.length; j++) {
+        const player2 = players[j]
+        if (usedPlayers.has(player2.user_id)) continue
 
         // Verificar criterios
         const criteria = await checkMatchCriteria(
