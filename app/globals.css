@@ -1,0 +1,845 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Paleta Profesional y Moderna */
+  --background: 220 14.3% 95.9%; /* Blanco Hueso */
+  --foreground: 224 71.4% 4.1%; /* Negro Suave */
+
+  --card: 0 0% 100%;
+  --card-foreground: 224 71.4% 4.1%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 224 71.4% 4.1%;
+
+  --primary: 142.1 76.2% 36.3%; /* Verde Tenis Principal */
+  --primary-foreground: 355.7 100% 97.3%;
+
+  --secondary: 220 14.3% 95.9%; /* Gris Claro */
+  --secondary-foreground: 220.9 39.3% 11%;
+
+  --muted: 220 14.3% 95.9%;
+  --muted-foreground: 220 8.9% 46.1%;
+
+  --accent: 45 93.4% 47.5%; /* Amarillo Tenis (para acentos) */
+  --accent-foreground: 224 71.4% 4.1%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 355.7 100% 97.3%;
+
+  --border: 220 13% 91%;
+  --input: 220 13% 91%;
+  --ring: 142.1 76.2% 36.3%;
+
+  --radius: 0.75rem; /* Bordes más redondeados */
+
+  /* Variables personalizadas para la temática de tenis */
+  --tennis-court-lines: #ffffff;
+  --tennis-net: #333333;
+  --tennis-ball: #dfff00; /* Amarillo Neón para la pelota */
+}
+
+.dark {
+  --background: 224 71.4% 4.1%;
+  --foreground: 210 20% 98%;
+  --card: 224 71.4% 4.1%;
+  --card-foreground: 210 20% 98%;
+  --popover: 224 71.4% 4.1%;
+  --popover-foreground: 210 20% 98%;
+  --primary: 142.1 76.2% 36.3%;
+  --primary-foreground: 355.7 100% 97.3%;
+  --secondary: 215 27.9% 16.9%;
+  --secondary-foreground: 210 20% 98%;
+  --muted: 215 27.9% 16.9%;
+  --muted-foreground: 217.9 10.6% 64.9%;
+  --accent: 45 93.4% 47.5%;
+  --accent-foreground: 224 71.4% 4.1%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 20% 98%;
+  --border: 215 27.9% 16.9%;
+  --input: 215 27.9% 16.9%;
+  --ring: 142.1 76.2% 36.3%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: "Inter", sans-serif; /* Fuente más moderna */
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-semibold tracking-tight;
+  }
+  h1 {
+    @apply text-3xl lg:text-4xl;
+  }
+  h2 {
+    @apply text-2xl lg:text-3xl;
+  }
+  h3 {
+    @apply text-xl lg:text-2xl;
+  }
+
+  .tennis-container {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Estilos específicos para mejorar la UI */
+.professional-card {
+  @apply bg-card text-card-foreground rounded-xl border shadow-lg transition-all duration-300 hover:shadow-xl;
+}
+
+.professional-input {
+  @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+.professional-btn {
+  @apply inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+}
+
+.professional-btn-primary {
+  @apply professional-btn bg-primary text-primary-foreground hover:bg-primary/90;
+}
+
+.professional-btn-secondary {
+  @apply professional-btn bg-secondary text-secondary-foreground hover:bg-secondary/80;
+}
+
+.professional-btn-outline {
+  @apply professional-btn border border-input bg-background hover:bg-accent hover:text-accent-foreground;
+}
+
+.professional-btn-ghost {
+  @apply professional-btn hover:bg-accent hover:text-accent-foreground;
+}
+
+/* Corrected Professional Alert Styles */
+.professional-alert {
+  @apply relative w-full rounded-lg border p-4;
+}
+.professional-alert > svg ~ * {
+  @apply pl-7;
+}
+.professional-alert > svg + div {
+  @apply translate-y-[-3px];
+}
+.professional-alert > svg {
+  @apply absolute left-4 top-4 text-foreground;
+}
+
+.professional-alert-destructive {
+  @apply border-destructive/50 text-destructive dark:border-destructive;
+}
+.professional-alert-destructive > svg {
+  @apply text-destructive;
+}
+
+.professional-table th {
+  @apply px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground;
+}
+
+.professional-table td {
+  @apply px-6 py-4 whitespace-nowrap text-sm text-foreground;
+}
+
+.professional-table tbody tr:nth-child(even) {
+  @apply bg-muted/50;
+}
+.professional-table tbody tr:hover {
+  @apply bg-accent/10;
+}
+
+/* Animaciones sutiles */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out;
+}
+.animate-slideInUp {
+  animation: slideInUp 0.5s ease-out;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Enhanced Z-Index Management */
+.z-nav {
+  z-index: 1000;
+}
+.z-dropdown {
+  z-index: 1100;
+}
+.z-modal {
+  z-index: 1200;
+}
+.z-overlay {
+  z-index: 1300;
+}
+.z-tooltip {
+  z-index: 1400;
+}
+
+/* Professional Tennis Components */
+.tennis-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.tennis-card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: translateY(-4px);
+}
+
+.tennis-card-interactive {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tennis-card-interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.tennis-gradient {
+  background: linear-gradient(135deg, var(--tennis-green) 0%, var(--tennis-court) 100%);
+}
+
+.tennis-gradient-secondary {
+  background: linear-gradient(135deg, var(--tennis-blue) 0%, var(--tennis-green-light) 100%);
+}
+
+.tennis-gradient-accent {
+  background: linear-gradient(135deg, var(--tennis-yellow) 0%, var(--tennis-orange) 100%);
+}
+
+.tennis-text-gradient {
+  @apply text-primary;
+  /* Remover las propiedades de background-clip y text-fill-color */
+}
+
+/* Enhanced Button Styles */
+.tennis-btn-primary {
+  background: var(--tennis-black);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(31, 41, 55, 0.3);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+}
+
+.tennis-btn-primary:hover {
+  background: #111827;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 8px -1px rgba(31, 41, 55, 0.4);
+}
+
+.tennis-btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px -1px rgba(31, 41, 55, 0.3);
+}
+
+.tennis-btn-secondary {
+  background: white;
+  color: var(--tennis-black);
+  border: 2px solid var(--tennis-black);
+  border-radius: 12px;
+  padding: 10px 22px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+}
+
+.tennis-btn-secondary:hover {
+  background: var(--tennis-black);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.tennis-btn-outline {
+  background: transparent;
+  color: var(--tennis-gray-dark);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 10px 22px;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+}
+
+.tennis-btn-outline:hover {
+  background: #f8fafc;
+  border-color: var(--tennis-gray);
+  transform: translateY(-1px);
+}
+
+/* Enhanced Stats Cards */
+.tennis-stats-card {
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.tennis-stats-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  @apply bg-primary; /* Usar color primario sólido */
+}
+
+.tennis-stats-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.15);
+}
+
+/* Enhanced Navigation */
+.tennis-nav {
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.tennis-nav-link {
+  color: var(--tennis-gray);
+  font-weight: 500;
+  transition: all 0.2s ease;
+  position: relative;
+  padding: 12px 16px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tennis-nav-link:hover {
+  color: var(--tennis-green);
+  background: var(--tennis-gray-light);
+}
+
+.tennis-nav-link.active {
+  background: var(--tennis-green);
+  color: white;
+}
+
+/* Enhanced Modal/Overlay Styles */
+.tennis-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.tennis-modal {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease-out;
+  position: relative;
+  z-index: 1300;
+}
+
+.tennis-popup {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  max-width: 95vw;
+  max-height: 85vh;
+  overflow-y: auto;
+  animation: popIn 0.2s ease-out;
+  z-index: 1300;
+}
+
+/* Enhanced Dropdown Styles */
+.tennis-dropdown {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  z-index: 1100;
+  min-width: 200px;
+  overflow: hidden;
+}
+
+.tennis-dropdown-item {
+  padding: 12px 16px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.tennis-dropdown-item:hover {
+  background: var(--tennis-gray-light);
+}
+
+/* Enhanced Table Styles */
+.tennis-table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  background: white;
+}
+
+.tennis-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tennis-table-header {
+  background: var(--tennis-gray-light);
+  color: var(--tennis-gray-dark);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  padding: 16px 12px;
+  border-bottom: 2px solid var(--tennis-green);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.tennis-table-cell {
+  padding: 16px 12px;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.tennis-ranking-row {
+  transition: all 0.2s ease;
+  border-left: 4px solid transparent;
+}
+
+.tennis-ranking-row:hover {
+  background: var(--tennis-gray-light);
+  border-left-color: var(--tennis-green);
+}
+
+.tennis-ranking-top3 {
+  background: linear-gradient(90deg, rgba(230, 184, 0, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%);
+  border-left: 4px solid var(--tennis-yellow);
+}
+
+/* Enhanced Form Styles */
+.tennis-input {
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  transition: all 0.2s ease;
+  background: white;
+  font-size: 14px;
+  min-height: 44px;
+}
+
+.tennis-input:focus {
+  border-color: var(--tennis-green);
+  box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.1);
+  outline: none;
+}
+
+/* Enhanced Badge Styles */
+.tennis-badge-gold {
+  @apply bg-yellow-400 text-yellow-900; /* Color plano para oro */
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.tennis-badge-silver {
+  @apply bg-gray-400 text-gray-900; /* Color plano para plata */
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.tennis-badge-bronze {
+  @apply bg-orange-400 text-orange-900; /* Color plano para bronce */
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+/* Enhanced Grid System */
+.tennis-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.tennis-grid-responsive {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .tennis-grid-responsive {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .tennis-grid-responsive {
+    gap: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tennis-grid-responsive {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+}
+
+/* Enhanced Container */
+@media (min-width: 640px) {
+  .tennis-container {
+    padding: 0 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tennis-container {
+    padding: 0 32px;
+  }
+}
+
+/* Enhanced Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.tennis-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.tennis-slide-up {
+  animation: slideUp 0.4s ease-out;
+}
+
+.tennis-pop-in {
+  animation: popIn 0.3s ease-out;
+}
+
+/* Enhanced Responsive Utilities */
+.hide-mobile {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .hide-mobile {
+    display: block;
+  }
+  .show-mobile {
+    display: none;
+  }
+}
+
+.hide-tablet {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .hide-tablet {
+    display: block;
+  }
+  .show-tablet {
+    display: none;
+  }
+}
+
+.hide-desktop {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .hide-desktop {
+    display: block;
+  }
+  .show-desktop {
+    display: none;
+  }
+}
+
+/* Enhanced Spacing System */
+.tennis-spacing-xs {
+  padding: 8px;
+}
+.tennis-spacing-sm {
+  padding: 16px;
+}
+.tennis-spacing-md {
+  padding: 24px;
+}
+.tennis-spacing-lg {
+  padding: 32px;
+}
+.tennis-spacing-xl {
+  padding: 48px;
+}
+
+@media (min-width: 640px) {
+  .tennis-spacing-xs {
+    padding: 12px;
+  }
+  .tennis-spacing-sm {
+    padding: 20px;
+  }
+  .tennis-spacing-md {
+    padding: 32px;
+  }
+  .tennis-spacing-lg {
+    padding: 48px;
+  }
+  .tennis-spacing-xl {
+    padding: 64px;
+  }
+}
+
+/* Enhanced Alert Styles */
+.tennis-alert {
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.tennis-alert-success {
+  background: #f0fdf4;
+  border-color: #22c55e;
+  color: #15803d;
+}
+
+.tennis-alert-warning {
+  background: #fffbeb;
+  border-color: #f59e0b;
+  color: #d97706;
+}
+
+.tennis-alert-error {
+  background: #fef2f2;
+  border-color: #ef4444;
+  color: #dc2626;
+}
+
+.tennis-alert-info {
+  background: #eff6ff;
+  border-color: #3b82f6;
+  color: #2563eb;
+}
+
+/* Enhanced Loading States */
+.tennis-loading {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tennis-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e2e8f0;
+  border-top: 2px solid var(--tennis-green);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Enhanced Focus States */
+.tennis-focus:focus {
+  outline: 2px solid var(--tennis-green);
+  outline-offset: 2px;
+}
+
+.tennis-focus:focus-visible {
+  outline: 2px solid var(--tennis-green);
+  outline-offset: 2px;
+}
+
+/* Enhanced Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Enhanced Print Styles */
+@media print {
+  .tennis-nav,
+  .tennis-btn-primary,
+  .tennis-btn-secondary,
+  .tennis-btn-outline {
+    display: none !important;
+  }
+
+  .tennis-card {
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+}
+
+.page-header-background {
+  @apply bg-primary text-primary-foreground rounded-2xl p-8 shadow-xl relative overflow-hidden;
+}
+
+.page-header-background .decorative-circle-1 {
+  @apply absolute top-0 right-0 w-32 h-32 bg-primary-foreground opacity-10 rounded-full -mr-16 -mt-16;
+}
+.page-header-background .decorative-circle-2 {
+  @apply absolute bottom-0 left-0 w-24 h-24 bg-primary-foreground opacity-10 rounded-full -ml-12 -mb-12;
+}
+
+/* Ajuste para que los badges de oro, plata y bronce usen colores planos */
+.tennis-badge-gold {
+  @apply bg-yellow-400 text-yellow-900; /* Color plano para oro */
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.tennis-badge-silver {
+  @apply bg-gray-400 text-gray-900; /* Color plano para plata */
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.tennis-badge-bronze {
+  @apply bg-orange-400 text-orange-900; /* Color plano para bronce */
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+/* Quitar gradiente de tennis-stats-card::before */
+/* Quitar gradiente de .tennis-text-gradient y usar color primario */
+.tennis-text-gradient {
+  @apply text-primary;
+}
