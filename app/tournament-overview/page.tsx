@@ -34,7 +34,7 @@ export default function TournamentOverviewPage() {
   return (
     <div className="min-h-screen bg-background">
       <MainNav />
-      <div className="container py-8 space-y-8">
+      <div className="tennis-container py-8 space-y-8">
         <header className="page-header-background">
           <div className="decorative-circle-1"></div>
           <div className="decorative-circle-2"></div>
