@@ -7,7 +7,8 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    // Enable Next.js built-in image optimization for faster page loads
+    unoptimized: false,
   },
 }
 
